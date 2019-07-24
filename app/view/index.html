@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>燕理工具箱</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/vue.js"></script>
+    <script async defer src="./js/buttons.js"></script>
+
+    <script defer src="./scripts/index.js"></script>
+</head>
+
+<body>
+    <div id="app" class="container-fluid">
+        <div class="col-12 mt-4 mb-4 text-center">
+            <h2>燕理工具箱</h2>
+        </div>
+        <div class="col-12 mt-4 mb-5">
+            <form style="max-width:400px;" class="mx-auto">
+                <div class="form-group row">
+                    <label for="" class="col-md-2 col-form-label">学号</label>
+                    <div class="col-md-10">
+                        <input type="email" class="form-control" v-model="uid" placeholder="9位学号">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-2">密码</label>
+                    <div class="col-md-10">
+                        <input type="password" class="form-control" v-model="pwd" placeholder="教务密码">
+                        <small class="form-text text-muted">请输入新教务系统的教务密码，初始密码为学号。</small>
+                    </div>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <div class="col-md-10 offset-md-2" style="padding-left:0">
+                        <input type="checkbox" class="custom-control-input" id="agree" v-model="checked">
+                        <label class="custom-control-label" for="agree">同意<a href="javascript:;" v-on:click="showAgreement">用户协议</a></label>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary" v-on:click="login">立即登陆</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-10 offset-md-2 text-center">
+            <a class="github-button" href="https://github.com/errcodex/YitTools" target="_BLANK" data-size="large"
+                data-show-count="true" aria-label="Star errcodex/YitTools on GitHub">Star | 关注项目进展</a>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

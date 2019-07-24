@@ -1,0 +1,19 @@
+{
+  "name": "yit-tools",
+  "version": "0.1.0-alpha",
+  "description": "YitTools",
+  "main": "app/app.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "electron": "^5.0.7",
+    "fs": "^0.0.1-security",
+    "superagent": "^5.1.0",
+    "superagent-charset": "^1.2.0"
+  },
+  "scripts": {
+    "start": "electron ."
+  }
+}
