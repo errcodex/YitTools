@@ -13,14 +13,14 @@ require('superagent-charset')(superagent)
 const fs = require("fs")
 const cheerio = require('cheerio')
 
-
-
-
-
+let win;
 const menu = Menu.buildFromTemplate([{
     label: '文件',
     submenu: [{
-        label: '返回',
+        label: '返回首页',
+		click: function () {
+            win.loadFile(__dirname + '/view/index.html')
+        }
     }, {
         type: 'separator'
     }, {
@@ -55,16 +55,21 @@ const menu = Menu.buildFromTemplate([{
 }])
 
 function createWindow() {
-    let win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 650,
         height: 500,
         webPreferences: {
             nodeIntegration: true
-        }
+        },
+        resizable:false
     })
     win.loadFile(__dirname + '/view/index.html')
-    //开发者工具
-    //win.webContents.openDevTools()
+    
+    if(!app.isPackaged){//开发环境
+        win.webContents.openDevTools()//开发者工具
+        win.setResizable(true)
+    }
+
     Menu.setApplicationMenu(menu)
 
     let gpa = new GPA()
@@ -129,7 +134,7 @@ class GPA {
     checkUser() {
         return new Promise((resolve, reject) => {
             //用户登录
-            this.http.post("http://54.222.196.251:81/yjlgxy_jsxsd/xk/LoginToXk", {
+            this.http.post("http://49.233.125.101:81/yjlgxy_jsxsd/xk/LoginToXk", {
                 encoded: this.encode(this.uid) + "%%%" + this.encode(this.pwd)
             }).then((v) => {
                 if (v.indexOf("用户名或密码错误") != -1) {
@@ -141,7 +146,7 @@ class GPA {
                 }
 
                 //获取用户信息
-                this.http.get("54.222.196.251:81/yjlgxy_jsxsd/framework/xsMain.jsp").then((v) => {
+                this.http.get("http://49.233.125.101:81/yjlgxy_jsxsd/framework/xsMain.jsp").then((v) => {
                     let username = cheerio.load(v)('#Top1_divLoginName').text().split("(")[0].trim()
                     if (username != "") {
                         this.username = username
@@ -165,7 +170,7 @@ class GPA {
         return new Promise((resolve, reject) => {
             let score = [];
             //let $ = cheerio.load(fs.readFileSync("tmp.html"))
-            this.http.post("http://54.222.196.251:81/yjlgxy_jsxsd/kscj/cjcx_list", {
+            this.http.post("http://49.233.125.101:81/yjlgxy_jsxsd/kscj/cjcx_list", {
                 "kksj": "",
                 "kcxz": "",
                 "kcmc": "",
@@ -267,7 +272,7 @@ class Http {
     constructor() {
         this.agent = superagent.agent()
         this.userAgent = {
-            "User-Agent": "Mozilla/5.0 (compatible; YitToolsSpider/2.0; +http://github.com/errcodex/YitTools)"
+            "User-Agent": "Mozilla/5.0 (compatible; YitToolsSpider/1.0; +http://github.com/errcodex/YitTools)"
         }
         this.contentType = {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
@@ -283,9 +288,11 @@ class Http {
                 .charset()
                 .end((err, res) => {
                     //写入缓存文件
-                    //fs.writeFile('tmp.html', res.text, (err) => {
-                    //    console.log('get save file err: ',err)
-                    //})
+					if(!app.isPackaged){//开发环境
+						fs.writeFile("post"+(new Date).getTime()+'.html', res.text, (err) => {
+							console.log('get save file err: ',err)
+						})
+					}
                     resolve(res.text)
                 })
         });
@@ -301,9 +308,11 @@ class Http {
                 .charset()
                 .end((err, res) => {
                     //写入缓存文件
-                    // fs.writeFile('tmp.html', res.text, (err) => {
-                    //     console.log('post save file err: ',err)
-                    // })
+					if(!app.isPackaged){//开发环境
+						fs.writeFile("post"+(new Date).getTime()+'.html', res.text, (err) => {
+							console.log('post save file err: ',err)
+						})
+					}
                     resolve(res.text)
                 })
         });

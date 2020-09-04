@@ -1,19 +1,36 @@
 {
-  "name": "yit-tools",
-  "version": "0.1.0-alpha",
-  "description": "YitTools",
+  "name": "YitTools",
+  "version": "0.1.0-beta",
+  "description": "YIT tools",
   "main": "app/app.js",
   "author": {
-    "name": ""
+    "name": "errcodex"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "electron": "^9.1.0",
     "fs": "^0.0.1-security",
     "superagent": "^5.1.0",
     "superagent-charset": "^1.2.0"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "builder": "electron-builder"
+  },
+  "devDependencies": {
+    "electron-builder": "^22.8.1",
+    "electron": "^9.1.0"
+  },
+  "build":{
+    "nsis":{
+      "oneClick":false,
+      "allowToChangeInstallationDirectory":true,
+      "perMachine":true
+    },
+    "win":{
+      "target": [{
+        "target": "nsis",
+        "arch": "x64"
+      }]
+    }
   }
 }

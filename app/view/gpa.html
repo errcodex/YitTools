@@ -12,60 +12,80 @@
 
     <script defer src="./scripts/gpa.js"></script>
     <style>
-    .colorA{
-        background-color: #CCCCFF!important
-    }
-    .colorB{
-        background-color: #CCFFFF!important
-    }
-    .colorC{
-        background-color: #CCFF99!important
-    }
-    .colorD{
-        background-color: #FFFF99!important
-    }
-    .colorE{
-        background-color: #FFCCCC!important
-    }
-    .colorF{
-        background-color: #FF6666!important
-    }
-    .colorTips{
-        display: inline-block;width:35px;height:15px;
-    }
+        .colorA {
+            background-color: #CCCCFF !important
+        }
+
+        .colorB {
+            background-color: #CCFFFF !important
+        }
+
+        .colorC {
+            background-color: #CCFF99 !important
+        }
+
+        .colorD {
+            background-color: #FFFF99 !important
+        }
+
+        .colorE {
+            background-color: #FFCCCC !important
+        }
+
+        .colorF {
+            background-color: #FF6666 !important
+        }
+
+        .colorTips {
+            display: inline-block;
+            width: 35px;
+            height: 15px;
+        }
+
+        /*fix bug of bootstrap*/
+        .custom-switch .custom-control-label::before,
+        .custom-switch .custom-control-label::after {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .custom-switch .custom-control-input:checked~.custom-control-label::after {
+            transform: translateY(-50%) translateX(.75rem);
+        }
     </style>
 </head>
 
 <body>
     <div class="container-fluid">
         <div id="app">
-        <div class="col-12 mt-4 mb-4 ">
-            <div class="float-left">
-                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd"
-                        d="M6.03531778,18.739764 C7.62329979,20.146176 9.71193925,21 12,21 C14.2880608,21 16.3767002,20.146176 17.9646822,18.739764 C17.6719994,17.687349 15.5693823,17 12,17 C8.43061774,17 6.32800065,17.687349 6.03531778,18.739764 Z M4.60050358,17.1246475 C5.72595131,15.638064 8.37060189,15 12,15 C15.6293981,15 18.2740487,15.638064 19.3994964,17.1246475 C20.4086179,15.6703183 21,13.9042215 21,12 C21,7.02943725 16.9705627,3 12,3 C7.02943725,3 3,7.02943725 3,12 C3,13.9042215 3.59138213,15.6703183 4.60050358,17.1246475 Z M12,23 C5.92486775,23 1,18.0751322 1,12 C1,5.92486775 5.92486775,1 12,1 C18.0751322,1 23,5.92486775 23,12 C23,18.0751322 18.0751322,23 12,23 Z M8,10 C8,7.75575936 9.57909957,6 12,6 C14.4141948,6 16,7.92157821 16,10.2 C16,13.479614 14.2180861,15 12,15 C9.76086382,15 8,13.4273743 8,10 Z M10,10 C10,12.2692568 10.8182108,13 12,13 C13.1777063,13 14,12.2983927 14,10.2 C14,8.95041736 13.2156568,8 12,8 C10.7337387,8 10,8.81582479 10,10 Z" />
-                </svg>
+            <div class="col-12 mt-2 mb-3">
+                <div class="float-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M6.03531778,18.739764 C7.62329979,20.146176 9.71193925,21 12,21 C14.2880608,21 16.3767002,20.146176 17.9646822,18.739764 C17.6719994,17.687349 15.5693823,17 12,17 C8.43061774,17 6.32800065,17.687349 6.03531778,18.739764 Z M4.60050358,17.1246475 C5.72595131,15.638064 8.37060189,15 12,15 C15.6293981,15 18.2740487,15.638064 19.3994964,17.1246475 C20.4086179,15.6703183 21,13.9042215 21,12 C21,7.02943725 16.9705627,3 12,3 C7.02943725,3 3,7.02943725 3,12 C3,13.9042215 3.59138213,15.6703183 4.60050358,17.1246475 Z M12,23 C5.92486775,23 1,18.0751322 1,12 C1,5.92486775 5.92486775,1 12,1 C18.0751322,1 23,5.92486775 23,12 C23,18.0751322 18.0751322,23 12,23 Z M8,10 C8,7.75575936 9.57909957,6 12,6 C14.4141948,6 16,7.92157821 16,10.2 C16,13.479614 14.2180861,15 12,15 C9.76086382,15 8,13.4273743 8,10 Z M10,10 C10,12.2692568 10.8182108,13 12,13 C13.1777063,13 14,12.2983927 14,10.2 C14,8.95041736 13.2156568,8 12,8 C10.7337387,8 10,8.81582479 10,10 Z" />
+                    </svg>
+                </div>
+                <div class="pl-3" style="padding:10px 0;line-height:20px;font-size: 20px; max-width: 200px;display: inline-block;">
+                    {{uid}}<br>{{name}}
+                </div>
+                <div style="position: absolute;right:0;top:0;font-size: 0;user-select: none">
+                    <span class="colorTips colorF"></span>
+                    <span class="colorTips colorE"></span>
+                    <span class="colorTips colorD"></span>
+                    <span class="colorTips colorC"></span>
+                    <span class="colorTips colorB"></span>
+                    <span class="colorTips colorA"></span>
+                </div>
+                <div style="font-weight: 600;position: absolute;bottom: 0px;right: 0px;">GPA:<span id="gpa" style="background-color: #eee; padding: 5px 12px;margin-left: 8px;">{{gpa}}</span>
+                </div>
             </div>
-            <div class="pl-3"
-                style="padding:10px 0;line-height:20px;font-size: 20px; max-width: 200px;display: inline-block;">
-                {{uid}}<br>{{name}}
+            <div class="custom-control custom-switch mb-2" style="line-height: 32px">
+                <input type="checkbox" class="custom-control-input" v-model="checked" id="customSwitch1">
+                <label class="custom-control-label" for="customSwitch1">{{ checked?"计算全部成绩":"不计算学分小于等于1的成绩（公选及部分必修）" }}</label>
+                <div style="position: absolute;right: 0; display: inline-block">
+                    <span id="countingcode" style="display:inline-block;opacity: 0;height: 1px;width: 1px;overflow: hidden;transform: translateX(-10px)" ></span>
+                    <button type="button" class="btn btn-primary btn-sm" v-on:click="copy">复制计算过程</button>
+                </div>
             </div>
-            <div style="position: absolute;right:0;top:0;font-size: 0;user-select: none">
-                <span class="colorTips colorF"></span>
-                <span class="colorTips colorE"></span>
-                <span class="colorTips colorD"></span>
-                <span class="colorTips colorC"></span>
-                <span class="colorTips colorB"></span>
-                <span class="colorTips colorA"></span>
-            </div>
-            <div style="font-weight: 600;position: absolute;bottom: 0px;right: 0px;">GPA:<span id="gpa"
-                    style="background-color: #eee; padding: 5px 12px;margin-left: 8px;">{{gpa}}</span>
-            </div>
-        </div>
-        <div class="custom-control custom-switch mb-1">
-            <input type="checkbox" class="custom-control-input" v-model="checked" id="customSwitch1">
-            <label class="custom-control-label" for="customSwitch1">{{ checked?"计算全部成绩":"不计算学分小于等于1的成绩（公选及部分必修）" }}</label>
-          </div>
         </div>
         <div id="myGrid" style="height: 300px;width:100%;" class="ag-theme-balham"></div>
     </div>
